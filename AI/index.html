@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI写真最新地址</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top left,#7c3aed,#06b6d4);
+      display:flex;align-items:center;justify-content:center;
+      color:#fff;text-align:center;
+    }
+    h1{font-size:36px;margin-bottom:16px}
+    p{font-size:16px;margin-bottom:24px}
+    .counter{font-size:32px;font-weight:bold;margin:12px 0}
+    .subdomain{font-family:monospace;font-size:18px;color:#9be7ff}
+    button{margin:6px;padding:8px 14px;border:none;border-radius:6px;cursor:pointer;font-size:14px}
+    .primary{background:#7c3aed;color:#fff}
+    .ghost{background:transparent;border:1px solid #fff;color:#fff}
+  </style>
+</head>
+<body>
+  <div>
+    <h1>正在选择最优线路</h1>
+    <p>将在 <span id="secs">3</span> 秒后自动进入</p>
+    <div class="counter" id="counter">3</div>
+    <div class="subdomain" id="subPreview">loading...</div>
+    <div>
+      <button class="primary" id="jumpNow">立即进入</button>
+      <button class="ghost" id="regen">换条线路</button>
+    </div>
+  </div>
+
+  <script>
+    const DELAY_SECONDS = 3;
+    function generateSubdomain(){
+      const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+      const len = Math.floor(Math.random()*5)+5;
+      let s='';
+      for(let i=0;i<len;i++) s+=chars[Math.floor(Math.random()*chars.length)];
+      return s;
+    }
+
+    let current='';
+    function updatePreview(){
+      current=generateSubdomain();
+      document.getElementById('subPreview').textContent=current+'.aixz.pics';
+    }
+    updatePreview();
+
+    let seconds=DELAY_SECONDS;
+    const counterEl=document.getElementById('counter');
+    const secsEl=document.getElementById('secs');
+    const interval=setInterval(()=>{
+      seconds--;
+      if(seconds<0){clearInterval(interval);doRedirect();}
+      else{counterEl.textContent=seconds;secsEl.textContent=seconds;}
+    },1000);
+
+    function doRedirect(){
+      location.href=`https://${current}.aixz.pics`;
+    }
+
+    document.getElementById('jumpNow').onclick=doRedirect;
+    document.getElementById('regen').onclick=()=>{updatePreview();seconds=DELAY_SECONDS;counterEl.textContent=seconds;secsEl.textContent=seconds;};
+  </script>
+</body>
+</html>
